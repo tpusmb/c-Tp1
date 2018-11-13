@@ -1,0 +1,21 @@
+ifstream infile(_filename.c_str());
+    if (infile.fail()) {
+        throw std::invalid_argument("Erreur pour ouvrire le fichier demander");
+    }else
+    {
+
+        string line;
+        vector<string> split_line;
+        uint64_t id;
+        // on prend l'entête du csv
+        std::getline(infile, line);
+        while (std::getline(infile, line))
+        {
+            split(line, split_line, ',');
+            std::istringstream id_string(split_line[1]);
+            // convertion ver un unint64
+            id_string >> id;
+            travel::Station station = {split_line[0], split_line[2], split_line[3], split_line[4]};
+            stations_hashmap[id] = station;
+        }
+    }

@@ -12,7 +12,7 @@
 class GrayLevelImage2D {
 public:
     typedef unsigned char GrayLevel;// le type pour les niveaux de gris.
-    typedef std::vector <GrayLevel> Container;// le type pour stocker les niveaux de gris de l'image.
+    typedef std::vector<GrayLevel> Container;// le type pour stocker les niveaux de gris de l'image.
 
     /**
        Représente un itérateur sur toutes les valeurs d'une image.
@@ -27,54 +27,99 @@ public:
 public:
     GrayLevelImage2D();
 
+    /**
+     * Constructor to inir a image
+     * @param w Width of the image
+     * @param h Height of the image
+     * @param g Default value of the image
+     */
     GrayLevelImage2D(int w, int h, GrayLevel g = 0);
 
+
+    /**
+     * Fill th image with one single value
+     * @param g Value to fill
+     */
     void fill(GrayLevel g);
 
-    //! [gli2d-sec3]
-    /// @return la largeur de l'image.
+    /**
+     * Geter width
+     * @return Image width
+     */
     int w() const;
 
-    /// @return la hauteur de l'image.
+    /**
+     * Geter height
+     * @return Image height
+     */
     int h() const;
 
     /**
-       Accesseur read-only à la valeur d'un pixel.
-       @return la valeur du pixel(i,j)
-    */
+     * (Read-only) Get the pixel value at a position
+     * @param i position x
+     * @param j position y
+     * @return The pixel value at the position x, y
+     */
     GrayLevel at(int i, int j) const;
 
     /**
-       Accesseur read-write à la valeur d'un pixel.
-       @return une référence à la valeur du pixel(i,j)
-    */
+     * (Read-Write) Get the pixel value at a position
+     * @param i position x
+     * @param j position y
+     * @return The pixel value at the position x, y
+     */
     GrayLevel &at(int i, int j);
-    //! [gli2d-sec3]
 
-
-
+    /**
+     * Get the begin iterator
+     * @return Yhe iterator at the begin of the image
+     */
     Iterator begin();
 
+    /**
+     * Get the end list iterator
+     * @return The iterator at the end of the image
+     */
     Iterator end();
 
+    /**
+     * Get the iterator at a specific position
+     * @param x position x
+     * @param y position y
+     * @return The iterator at the position x, y
+     */
     Iterator start(int x, int y);
 
-    std::pair<int, int> position(Iterator it) const;
-
+    /**
+     * Import a pgm file for now we just read Binary image !
+     * @param input File to read
+     * @return True the import have work. False there a error
+     */
     bool importPGM(std::istream &input);
 
+    /**
+     * Export the image in a pgm file
+     * @param output File to write the image
+     * @param ascii True the image file will be write in ascii. False in bineray mode
+     * @return True the exporthave work. False there a error
+     */
     bool exportPGM(std::ostream &output, bool ascii = true);
 
 
 private:
-    // Calcule l'indice dans m_data du pixel (x,y).
+    /**
+     * Get the index of the pixel coordinate
+     * @param x position x
+     * @param y position y
+     * @return The index
+     */
     int index(int x, int y) const;
 
-    // Le tableau contenant les valeurs des pixels.
+    // image container (is a array of char)
     Container m_data;
-    // la largeur
+    // width of the image
     int m_width;
-    // la hauteur
+    // height of the image
     int m_height;
 };
 
